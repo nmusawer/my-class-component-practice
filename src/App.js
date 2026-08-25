@@ -1,25 +1,42 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { Component } from 'react';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+// Child Component that receives props and manages local state
+class ChildComponent extends Component {
+  constructor(props) {
+    super(props);
+    // Initialize local state
+    this.state = {
+      clicks: 0,
+    };
+  }
+
+  // Method to handle button click
+  handleButtonClick = () => {
+    this.setState({ clicks: this.state.clicks + 1 });
+  };
+
+  render() {
+    return (
+      <div>
+        <h1>{this.props.title}</h1>
+        <p>Clicks: {this.state.clicks}</p>
+        <button onClick={this.handleButtonClick}>Click Me!</button>
+      </div>
+    );
+  }
 }
 
-export default App;
+// Parent Component that passes props to ChildComponent
+class ParentComponent extends Component {
+  render() {
+    return (
+      <div>
+        <h1>Welcome to the Parent Component</h1>
+        {/* Pass a title prop to the ChildComponent */}
+        <ChildComponent title="Hello from Parent!" message="You can manage both state and props!" />
+      </div>
+    );
+  }
+}
+
+export default ParentComponent;
